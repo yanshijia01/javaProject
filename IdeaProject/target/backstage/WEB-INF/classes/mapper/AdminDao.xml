@@ -1,0 +1,36 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.backstage.dao.AdminDao">
+    <resultMap id="UserList" type="org.backstage.entity.User">
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="realName" column="real_name"/>
+        <result property="gender" column="gender"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="address" column="address"/>
+        <result property="isDel" column="isDel"/>
+        <result property="isLock" column="isLock"/>
+        <result property="QQ" column="QQ"/>
+    </resultMap>
+
+    <select id="SelectAllUserList" resultMap="UserList" parameterType="Integer">
+        select * from user where 1=1
+        <if test="keystr!=null and keystr!=''">
+            and id=#{keystr}
+        </if>
+        limit #{page},#{limit}
+    </select>
+
+    <select id="TotalCount" resultType="java.lang.Integer">
+        select count(0) from user where 1=1
+        <if test="keystr!=null and keystr!=''">
+            and id=#{keystr}
+        </if>
+    </select>
+    <select id="ExportAll" resultMap="UserList">
+        select * from user
+    </select>
+</mapper>
