@@ -1,0 +1,59 @@
+<!DOCTYPE web-app PUBLIC
+        "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app id="WebApp_ID" version="2.4"
+         xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <display-name>Archetype Created Web Application</display-name>
+
+    <!--过滤器，设置请求和响应编码-->
+    <filter>
+        <!-- 指定filter的名字 -->
+        <filter-name>encodingFilter</filter-name>
+        <!-- 定义filter的类的名称 -->
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <!-- 用来定义参数,若在servlet可以使用下列方法来获取:String param_name = getServletContext().getInitParamter("param_name里面的值"); -->
+        <init-param>
+            <!-- 参数名称 -->
+            <param-name>encoding</param-name>
+            <!-- 参数值 -->
+            <param-value>UTF-8</param-value>
+        </init-param>
+    </filter>
+
+    <!-- 解决PUT请求无法提交Form的问题 -->
+    <filter>
+        <filter-name>HttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HttpPutFormContentFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HttpMethodFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- 用来定义filter所对应的URL -->
+    <filter-mapping>
+        <!-- 指定对应filter的名字 -->
+        <filter-name>encodingFilter</filter-name>
+        <!-- 指定filter所对应的URL 要拦截的URL -->
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>chapter2</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring-mvc.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>chapter2</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+</web-app>
