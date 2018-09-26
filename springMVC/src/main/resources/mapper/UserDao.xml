@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.mvc.dao.UserDao">
+
+    <resultMap id="UserList" type="org.mvc.pojo.User">
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="realName" column="real_name"/>
+        <result property="gender" column="gender"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="address" column="address"/>
+        <result property="isDel" column="isDel"/>
+        <result property="isLock" column="isLock"/>
+        <result property="QQ" column="QQ"/>
+    </resultMap>
+
+    <select id="listAll" resultMap="UserList" parameterType="Integer">
+        select * from user;
+    </select>
+</mapper>
